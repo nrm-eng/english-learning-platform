@@ -8,3 +8,6 @@ public class RoleAlreadyExistsException(string name)
 
 public class UnhandledRoleException(int roleId, Exception? innerException = null)
     : BaseException(roleId, "Unhandled role exception", innerException);
+
+public class RoleHasUsersException(int roleId)
+    : BaseException(roleId, $"Role with id {roleId} has related users and cannot be deleted");
