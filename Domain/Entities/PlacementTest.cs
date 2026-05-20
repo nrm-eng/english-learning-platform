@@ -26,4 +26,12 @@ public class PlacementTest : IEntity
 
     public static PlacementTest New(int userId, int levelId, int score, int maxScore)
         => new PlacementTest(userId, levelId, score, maxScore, DateTime.UtcNow);
+
+    public void UpdateResult(int levelId, int score, int maxScore)
+    {
+        LevelId = levelId;
+        Score = score;
+        MaxScore = maxScore;
+        TakenAt = DateTime.UtcNow;
+    }
 }
