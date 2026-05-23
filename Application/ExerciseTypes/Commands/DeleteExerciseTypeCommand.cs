@@ -28,10 +28,10 @@ public class DeleteExerciseTypeCommandHandler(
     }
 
     private async Task<Either<BaseException, LanguageExt.Unit>> CheckDependencies(
-        int exerciseTypeId, CancellationToken cancellationToken)
+    int exerciseTypeId, CancellationToken cancellationToken)
     {
         var exercises = await exerciseQueries.GetByTypeIdAsync(exerciseTypeId, cancellationToken);
-        return exercises.Any()
+        return exercises != null && exercises.Any()
             ? new ExerciseTypeHasExercisesException(exerciseTypeId)
             : LanguageExt.Unit.Default;
     }
