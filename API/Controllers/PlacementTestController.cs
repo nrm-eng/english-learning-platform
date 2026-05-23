@@ -3,12 +3,14 @@ using Api.Modules.Errors;
 using Application.PlacementTests.Commands;
 using Application.Common.Interfaces.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
 [Route("placement-tests")]
 [ApiController]
+[Authorize]
 public class PlacementTestController(
     ISender sender,
     IPlacementTestQueries placementTestQueries) : ControllerBase

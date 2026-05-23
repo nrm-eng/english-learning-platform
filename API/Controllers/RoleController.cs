@@ -3,17 +3,20 @@ using Api.Modules.Errors;
 using Application.Roles.Commands;
 using Application.Common.Interfaces.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
 [Route("roles")]
 [ApiController]
+[Authorize(Roles = "Admin")]
 public class RoleController(
     ISender sender,
     IRoleQueries roleQueries) : ControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     public async Task<ActionResult<IReadOnlyList<RoleDto>>> GetAll(
         CancellationToken cancellationToken)
     {
@@ -22,6 +25,7 @@ public class RoleController(
     }
 
     [HttpGet("{roleId:int}")]
+    [AllowAnonymous]
     public async Task<ActionResult<RoleDto>> GetById(
         [FromRoute] int roleId,
         CancellationToken cancellationToken)

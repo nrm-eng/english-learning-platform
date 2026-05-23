@@ -1,4 +1,6 @@
-﻿using Infrastructure.Persistence;
+﻿using Application.Common.Interfaces.Services;
+using Infrastructure.Persistence;
+using Infrastructure.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,5 +13,6 @@ public static class ConfigureInfrastructureServices
         IConfiguration configuration)
     {
         services.AddPersistenceServices(configuration);
+        services.AddScoped<ITokenService, TokenService>();
     }
 }

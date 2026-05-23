@@ -3,12 +3,14 @@ using Api.Modules.Errors;
 using Application.Users.Commands;
 using Application.Common.Interfaces.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
 [Route("users")]
 [ApiController]
+[Authorize(Roles = "Admin")]
 public class UserController(
     ISender sender,
     IUserQueries userQueries) : ControllerBase

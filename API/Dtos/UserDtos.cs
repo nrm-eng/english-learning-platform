@@ -32,3 +32,5 @@ public record UpdateUserDto(
     string Name,
     string Email,
     int RoleId);
+
+public record LoginUserDto(string Email, string Password);

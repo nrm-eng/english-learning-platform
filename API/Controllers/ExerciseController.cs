@@ -3,17 +3,20 @@ using Api.Modules.Errors;
 using Application.Exercises.Commands;
 using Application.Common.Interfaces.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
 [Route("exercises")]
 [ApiController]
+[Authorize(Roles = "Admin")]
 public class ExerciseController(
     ISender sender,
     IExerciseQueries exerciseQueries) : ControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     public async Task<ActionResult<IReadOnlyList<ExerciseDto>>> GetAll(
         CancellationToken cancellationToken)
     {
@@ -22,6 +25,7 @@ public class ExerciseController(
     }
 
     [HttpGet("{exerciseId:int}")]
+    [AllowAnonymous]
     public async Task<ActionResult<ExerciseDetailDto>> GetById(
         [FromRoute] int exerciseId,
         CancellationToken cancellationToken)
@@ -33,6 +37,7 @@ public class ExerciseController(
     }
 
     [HttpGet("level/{levelId:int}")]
+    [AllowAnonymous]
     public async Task<ActionResult<IReadOnlyList<ExerciseDto>>> GetByLevel(
         [FromRoute] int levelId,
         CancellationToken cancellationToken)
@@ -42,6 +47,7 @@ public class ExerciseController(
     }
 
     [HttpGet("type/{typeId:int}")]
+    [AllowAnonymous]
     public async Task<ActionResult<IReadOnlyList<ExerciseDto>>> GetByType(
         [FromRoute] int typeId,
         CancellationToken cancellationToken)
@@ -51,6 +57,7 @@ public class ExerciseController(
     }
 
     [HttpGet("level/{levelId:int}/type/{typeId:int}")]
+    [AllowAnonymous]
     public async Task<ActionResult<IReadOnlyList<ExerciseDto>>> GetByLevelAndType(
         [FromRoute] int levelId,
         [FromRoute] int typeId,

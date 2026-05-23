@@ -1,18 +1,22 @@
 ﻿using Api.Dtos;
 using Api.Modules.Errors;
 using Application.AnswerOptions.Commands;
+using Application.Common.Interfaces.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
 [Route("answer-options")]
 [ApiController]
+[Authorize(Roles = "Admin")]
 public class AnswerOptionController(
     ISender sender,
     IAnswerOptionQueries answerOptionQueries) : ControllerBase
 {
     [HttpGet("{answerOptionId:int}")]
+    [AllowAnonymous]
     public async Task<ActionResult<AnswerOptionDto>> GetById(
         [FromRoute] int answerOptionId,
         CancellationToken cancellationToken)

@@ -2,17 +2,20 @@
 using Api.Modules.Errors;
 using Application.Questions.Commands;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
 [Route("questions")]
 [ApiController]
+[Authorize(Roles = "Admin")]
 public class QuestionController(
     ISender sender,
     IQuestionQueries questionQueries) : ControllerBase
 {
     [HttpGet("{questionId:int}")]
+    [AllowAnonymous]
     public async Task<ActionResult<QuestionDto>> GetById(
         [FromRoute] int questionId,
         CancellationToken cancellationToken)
