@@ -3,12 +3,14 @@ using Api.Modules.Errors;
 using Application.UserExerciseResults.Commands;
 using Application.Common.Interfaces.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
 [Route("user-exercise-results")]
 [ApiController]
+[Authorize]
 public class UserExerciseResultController(
     ISender sender,
     IUserExerciseResultQueries userExerciseResultQueries) : ControllerBase

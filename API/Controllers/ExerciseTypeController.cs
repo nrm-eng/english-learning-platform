@@ -3,17 +3,20 @@ using Api.Modules.Errors;
 using Application.ExerciseTypes.Commands;
 using Application.Common.Interfaces.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
 [Route("exercise-types")]
 [ApiController]
+[Authorize(Roles = "Admin")]
 public class ExerciseTypeController(
     ISender sender,
     IExerciseTypeQueries exerciseTypeQueries) : ControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     public async Task<ActionResult<IReadOnlyList<ExerciseTypeDto>>> GetAll(
         CancellationToken cancellationToken)
     {
@@ -22,6 +25,7 @@ public class ExerciseTypeController(
     }
 
     [HttpGet("{typeId:int}")]
+    [AllowAnonymous]
     public async Task<ActionResult<ExerciseTypeDto>> GetById(
         [FromRoute] int typeId,
         CancellationToken cancellationToken)
