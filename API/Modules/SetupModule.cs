@@ -10,7 +10,13 @@ public static class SetupModule
         services.AddControllers(options =>
         {
             options.Filters.Add<ValidationFilter>();
+        })
+        .AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.Converters.Add(
+                new System.Text.Json.Serialization.JsonStringEnumConverter());
         });
+
         services.AddCors();
         services.AddRequestValidation();
     }
